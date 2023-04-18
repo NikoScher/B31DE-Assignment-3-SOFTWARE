@@ -9,26 +9,6 @@
 ; lowest address
 ; label __initial_sp is the same as label Stack_mem
 ; actual values for these labels will be determined by linker
-
-Stack_Size      EQU     0x00000400  ; 1kB of STACK
-                AREA    STACK, NOINIT, READWRITE, ALIGN=4
-Stack_Mem       SPACE   Stack_Size
-__initial_sp
-
-; specify block of memory for stack with label Heap_mem for
-; lowest address
-; actual value for this label will be determined by linker
-Heap_Size       EQU     0x00000400 				; 1kB of HEAP; asm file for use with interrupt timer in C
-; 2023 version
-
-; simple stack and heap specification shown here
-; assumes that microlib is not used
-; use of microlib can be controlled via target options in uVision
-
-; specify block of memory for stack with label Stack_mem for
-; lowest address
-; label __initial_sp is the same as label Stack_mem
-; actual values for these labels will be determined by linker
 Stack_Size      EQU     0x00000400				; 1kB of STACK
                 AREA    STACK, NOINIT, READWRITE, ALIGN=4
 Stack_Mem       SPACE   Stack_Size
@@ -76,10 +56,10 @@ __Vectors	DCD	__initial_sp
         	DCD	0
         	DCD	0
         	DCD	0
+        	DCD 	0
         	DCD	0
         	DCD	0
-        	DCD	0
-        	DCD	0
+        	DCD 	0
         	DCD	0
 ; External Interrupts						        				
         	DCD	Timer_Handler
