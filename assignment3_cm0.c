@@ -2,14 +2,16 @@
 #define uint16  unsigned short
 #define uint32  unsigned int
 
+// Used to read/write to register in address
 #define UINT32  *(volatile uint32*)
 
+// Address'
 #define AHB_TIMER_LIMIT UINT32 0x52000000
 #define AHB_TIMER_CTRL  UINT32 0x52000008
 #define AHB_DA2         UINT32 0x55000000
 
-#define LIMIT           0x00000063
-#define CONTROL         0x00000007
+#define LIMIT           0x00000063  // Count up to 99
+#define CONTROL         0x00000007  // Timer on, counting up, using limit
 #define NUM_SAMPLES     500
 
 volatile static uint16 ind = 0;
@@ -42,12 +44,12 @@ volatile static uint16 sin[NUM_SAMPLES] = {
 };
 
 void Timer_Handler() {
-    AHB_DA2 = sin[ind];
-    ind = (ind + 1) % NUM_SAMPLES;
+    AHB_DA2 = sin[ind];             // Push new sample to DAC
+    ind = (ind + 1) % NUM_SAMPLES;  // Update index
 }
 
 int main(void) {
-    AHB_TIMER_LIMIT = LIMIT;
-    AHB_TIMER_CTRL  = CONTROL;
-    while(1) {}
+    AHB_TIMER_LIMIT = LIMIT;    // Write limit value to timer limit register
+    AHB_TIMER_CTRL  = CONTROL;  // Write control value to timer control register
+    while(1) {} // Infinite while loop to keep program running
 }

@@ -1,5 +1,3 @@
-; asm file for use with interrupt timer in C
-; 2023 version
 
 ; simple stack and heap specification shown here
 ; assumes that microlib is not used
@@ -89,7 +87,7 @@ Reset_Handler   PROC
 				IMPORT  __main
 					
 				LDR		R1, =0xE000E100	; enable IRQ #0 interrupts
-				LDR		R0, =0x00000001
+				LDR		R0, =0x00000001 ; enable timer interrupts
 				STR		R0, [R1]
 
                 LDR     R0, =__main                
